@@ -1,11 +1,13 @@
 package Jets;
 
+import java.text.DecimalFormat;
+
 public class Jet {
     private String model;
     private float speedMph;
     private float speedMach;
     private float range;
-    private Pilot pilot;
+    private Pilot[] pilots = new Pilot[0];
     
     //constructors
     public Jet(){
@@ -17,8 +19,7 @@ public class Jet {
         setSpeedMph(sp);
         convertSpeedToMach(sp);
         setRange(rg);
-        pilot = p;
-        pilot.setJet(this);
+        addPilot(p);
     }
 
     
@@ -55,18 +56,42 @@ public class Jet {
 		this.range = range;
 	}
 
-	public Pilot getPilot() {
-		return pilot;
+	public Pilot[] getPilots() {
+		return pilots;
 	}
 
-	public void setPilot(Pilot pilot) {
-		this.pilot = pilot;
+	public void setPilots(Pilot[] pilot) {
+		this.pilots = pilot;
 	}
 
 	public void convertSpeedToMach(float s){
-		speedMach = s;
+		DecimalFormat dec = new DecimalFormat("#.##");
+		
+		speedMach = Float.valueOf(dec.format(speedMph / (0.447f * 340.29f)));
+
 	}
 	
+	//add Pilot
+	public void addPilot(Pilot newPilot){
+		//if array length is 0, create new array of length ONE and add new jet
+		if(pilots.length==0){
+			pilots = new Pilot[1];
+			pilots[0] = newPilot;
+		}
+		//otherwise create new array list that is one element bigger
+		else{		
+			Pilot[] newPilotList = new Pilot[pilots.length+1];
+			//store the oldlist of jets in the new list
+			for(int i = 0; i<pilots.length; i++){
+				newPilotList[i] = pilots[i];
+			}
+			//store the new jet in the last spot of the array
+			newPilotList[pilots.length] = newPilot;
+			
+			//set the new list to jetsArray
+			pilots = newPilotList;
+		}
+	}
 	
 	//toString
 	@Override

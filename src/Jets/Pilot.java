@@ -4,14 +4,13 @@ public class Pilot {
 	
 	private String firstName;
 	private String lastName;
-	private Jet jet;
+	private Jet[] jets = new Jet[0];
 	private String rank;
 	
 	//Constructors
 	public Pilot(){
 		this.firstName = "First Name";
 		this.lastName = "Last Name";
-		this.jet = new Jet();
 		this.rank = "O1";
 	}
 	
@@ -38,12 +37,12 @@ public class Pilot {
 		this.lastName = lastName;
 	}
 
-	public Jet getJet() {
-		return jet;
+	public Jet[] getJets() {
+		return jets;
 	}
 
-	public void setJet(Jet jet) {
-		this.jet = jet;
+	public void setJets(Jet[] jet) {
+		this.jets = jet;
 	}
 
 	public String getRank() {
@@ -54,10 +53,33 @@ public class Pilot {
 		this.rank = rank;
 	}
 
+	//add Jet
+	public void addJet(Jet newJet){
+		//if array length is 0, create new array of length ONE and add new jet
+				if(jets.length==0){
+					jets = new Jet[1];
+					jets[0] = newJet;
+				}
+				//otherwise create new array list that is one element bigger
+				else{		
+					Jet[] newJetList = new Jet[jets.length+1];
+					//store the oldlist of jets in the new list
+					for(int i = 0; i<jets.length; i++){
+						
+						newJetList[i] = jets[i];
+					}
+					//store the new jet in the last spot of the array
+					newJetList[jets.length] = newJet;
+					
+					//set the new list to jetsArray
+					jets = newJetList;
+				}
+	}
+	
 	//toString
 	@Override
 	public String toString() {
-		return "Pilot [firstName=" + firstName + ", lastName=" + lastName + ", jet=" + jet + ", rank=" + rank + "]";
+		return "Pilot [firstName=" + firstName + ", lastName=" + lastName + ", rank=" + rank + "]";
 	}
 	
 	
