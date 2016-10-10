@@ -7,6 +7,7 @@ public class Jet {
     private float range;
     private Pilot pilot;
     
+    //constructors
     public Jet(){
     	
     }
@@ -20,6 +21,8 @@ public class Jet {
         pilot.setJet(this);
     }
 
+    
+    //Getters and Setters
 	public String getModel() {
 		return model;
 	}
@@ -64,6 +67,8 @@ public class Jet {
 		speedMach = s;
 	}
 	
+	
+	//toString
 	@Override
 	public String toString() {
 		return "Jet [model=" + model + ", speedMph=" + speedMph + ", speedMach=" + speedMach + ", range=" + range
